@@ -6,7 +6,7 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/mix3/ndi-go"
+	"github.com/FlowingSPDG/ndi-go-1"
 )
 
 func main() {
