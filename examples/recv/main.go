@@ -6,7 +6,7 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/mix3/ndi-go"
+	"github.com/FlowingSPDG/ndi-go-1"
 )
 
 func main() {
@@ -42,7 +42,9 @@ func run() error {
 	}
 	defer ndi.RecvDestory(recvInstance)
 
-	ndi.RecvConnect(recvInstance, sources[rand.Intn(len(sources))])
+	src := sources[rand.Intn(len(sources))]
+	fmt.Println("Connecting to :", src.Name())
+	ndi.RecvConnect(recvInstance, src)
 
 	for start := time.Now(); time.Since(start) < time.Minute; {
 		var (
@@ -55,6 +57,8 @@ func run() error {
 			break
 		case ndi.FrameTypeVideo:
 			fmt.Printf("Video data received (%dx%d).\n", videoFrame.Xres(), videoFrame.Yres())
+			data := videoFrame.Data()
+			fmt.Println("Received data length :", len(data))
 			ndi.RecvFreeVideoV2(recvInstance, &videoFrame)
 			break
 		case ndi.FrameTypeAudio:
