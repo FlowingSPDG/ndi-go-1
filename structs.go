@@ -38,6 +38,10 @@ func (t VideoFrameV2T) Yres() int {
 	return int(t.yres)
 }
 
+func (t VideoFrameV2T) Data() []byte {
+	return []byte(C.GoString((*C.char)(unsafe.Pointer(t.p_data))))
+}
+
 type AudioFrameV2T C.NDIlib_audio_frame_v2_t
 
 func (t AudioFrameV2T) NoSamples() int {
